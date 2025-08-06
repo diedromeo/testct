@@ -127,7 +127,6 @@ def index():
         <script>
             function viewDoc() {
                 const file = document.getElementById('docSelect').value;
-                // Redirect so ?file= appears in browser URL
                 window.location.href = '/view?file=' + encodeURIComponent(file);
             }
         </script>
@@ -140,20 +139,25 @@ def index():
 def view_file():
     file = request.args.get("file", "")
 
-    # Block direct request to flag.txt
+    # Block direct access to flag.txt
     if os.path.basename(file) == "flag.txt":
         return "<b>Access Denied:</b> Restricted file"
 
     try:
-        # Check inside docs folder first
+        # First check inside docs folder
         file_path = os.path.join(DOCS_FOLDER, file)
         if os.path.exists(file_path):
             return send_file(file_path)
 
-        # Intentionally vulnerable: allow path traversal
-        return send_file(file)
+        # Allow path traversal: resolve to absolute path
+        abs_path = os.path.abspath(file)
+        if os.path.exists(abs_path):
+            return send_file(abs_path)
+
+        return "<b>Error:</b> File not found"
     except Exception as e:
         return f"<b>Error:</b> {str(e)}"
 
 if __name__ == "__main__":
+    # Works locally and on Render
     app.run(host="0.0.0.0", port=8000)
