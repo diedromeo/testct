@@ -1,0 +1,23 @@
+==============================
+Acme Corp - Employee Onboarding
+==============================
+
+Welcome to Acme Corp, a global leader in innovative technology solutions.
+
+This portal provides employees with secure access to important company documents,
+policies, and onboarding resources.
+
+Guidelines:
+-----------
+1. Use the document portal only for official company purposes.
+2. Keep your login credentials safe and do not share them with anyone.
+3. Report any suspicious activity to the IT Security Team immediately.
+
+Support:
+--------
+For assistance, contact the Acme Corp Helpdesk at:
+helpdesk@acmecorp.internal
+
+We are excited to have you on board and look forward to working together!
+
+- Acme Corp Security & HR Team
