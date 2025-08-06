@@ -140,7 +140,12 @@ def index():
 def view_file():
     file = request.args.get("file", "")
     try:
-        # Vulnerable: No sanitization → allows ../../ to escape docs folder
+        # First, check inside docs folder
+        file_path = os.path.join(DOCS_FOLDER, file)
+        if os.path.exists(file_path):
+            return send_file(file_path)
+
+        # Intentionally vulnerable: allow path traversal
         return send_file(file)
     except Exception as e:
         return f"<b>Error:</b> {str(e)}"
