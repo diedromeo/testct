@@ -139,8 +139,13 @@ def index():
 @app.route("/view")
 def view_file():
     file = request.args.get("file", "")
+
+    # Block direct request to flag.txt
+    if os.path.basename(file) == "flag.txt":
+        return "<b>Access Denied:</b> Restricted file"
+
     try:
-        # First, check inside docs folder
+        # Check inside docs folder first
         file_path = os.path.join(DOCS_FOLDER, file)
         if os.path.exists(file_path):
             return send_file(file_path)
